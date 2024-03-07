@@ -12,6 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="BusinessService\Interface\" />
+    <Folder Include="DbAccess\" />
+    <Folder Include="DbModel\" />
     <Folder Include="Utility\Models\" />
   </ItemGroup>
 
