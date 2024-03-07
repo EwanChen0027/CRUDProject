@@ -8,9 +8,12 @@ namespace CRUDProject.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
-        // GET: api/<PersonController>
+        /// <summary>
+        /// 取得所有人員
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<string> Get([FromQuery])
         {
             return new string[] { "value1", "value2" };
         }
