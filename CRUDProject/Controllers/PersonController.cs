@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CRUDProjectCommon.RequestModel;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,9 +12,10 @@ namespace CRUDProject.Controllers
         /// <summary>
         /// 取得所有人員
         /// </summary>
+        /// <param name="req"></param>
         /// <returns></returns>
         [HttpGet]
-        public IEnumerable<string> Get([FromQuery])
+        public IEnumerable<string> GetAllPersonInfo([FromQuery] GetAllPersonInfoReq req)
         {
             return new string[] { "value1", "value2" };
         }

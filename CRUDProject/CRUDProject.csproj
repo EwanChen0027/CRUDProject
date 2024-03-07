@@ -7,15 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="BusinessService\Interface\" />
-    <Folder Include="DbAccess\" />
-    <Folder Include="DbModel\" />
-    <Folder Include="Utility\Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CRUDProjectCommon\CRUDProjectCommon.csproj" />
   </ItemGroup>
 
 </Project>
