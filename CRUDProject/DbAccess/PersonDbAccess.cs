@@ -12,14 +12,17 @@ namespace CRUDProject.DbAccess
     {
         private readonly IUnitOfWorkFactory unitOfWorkFactory;
         private readonly ConnectionStrings dbconnection;
-        public PersonDbAccess(IUnitOfWorkFactory unitOfWorkFactory, IOptions<ConnectionStrings> connection) 
+        private readonly IConfiguration config;
+        public PersonDbAccess(IUnitOfWorkFactory unitOfWorkFactory, IOptions<ConnectionStrings> connection, IConfiguration configuration) 
         {
             this.unitOfWorkFactory = unitOfWorkFactory;
             this.dbconnection = connection.Value;
+            this.config = configuration;
         }
 
         public async Task<List<PersonInfoDto>> QueryAllPersonInfo(int? pageSize, int? pageNum = 20)
         {
+            var conn = config.GetValue<String>("ConnectionStrings:DbAdventureWorks2019");
             using (var unitOfWork = unitOfWorkFactory.Create(dbconnection.DbAdventureWorks2019))
             {
                 var param = new DynamicParameters();
