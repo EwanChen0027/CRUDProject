@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BusinessService\Interface\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\CRUDProjectCommon\CRUDProjectCommon.csproj" />
   </ItemGroup>
 

@@ -8,6 +8,11 @@ namespace CRUDProjectCommon.ResponseModel
 {
     public class GetAllPersonInfoRes
     {
+        public List<PersonInfo> personInfoList { get; set; }
+    }
+
+    public class PersonInfo
+    {
         /// <summary>
         /// 流水號
         /// </summary>

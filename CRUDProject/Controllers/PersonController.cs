@@ -1,4 +1,6 @@
-﻿using CRUDProjectCommon.RequestModel;
+﻿using CRUDProject.BusinessService.Interface;
+using CRUDProjectCommon.RequestModel;
+using CRUDProjectCommon.ResponseModel;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,15 +11,25 @@ namespace CRUDProject.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
+        //服務注入與建構
+        private readonly IPersonService personService;
+
+        public PersonController(IPersonService personService)
+        {
+            this.personService = personService;
+        }
+
+
         /// <summary>
         /// 取得所有人員
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpGet]
-        public IEnumerable<string> GetAllPersonInfo([FromQuery] GetAllPersonInfoReq req)
+        public async Task<GetAllPersonInfoRes> GetAllPersonInfo([FromQuery] GetAllPersonInfoReq req)
         {
-            return new string[] { "value1", "value2" };
+            var res = await personService.GetAllPersonInfoAsync(req);
+            return res;
         }
 
         // GET api/<PersonController>/5
