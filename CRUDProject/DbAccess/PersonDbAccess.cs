@@ -20,9 +20,38 @@ namespace CRUDProject.DbAccess
             this.config = configuration;
         }
 
-        public async Task<List<PersonInfoDto>> QueryAllPersonInfo(int? pageSize, int? pageNum = 20)
+        public async Task<List<AddressTypeDto>> QueryAllAddressType(int? pageNum, int? pageSize)
         {
-            var conn = config.GetValue<String>("ConnectionStrings:DbAdventureWorks2019");
+            using (var unitOfWork = unitOfWorkFactory.Create(dbconnection.DbAdventureWorks2019))
+            {
+                var param = new DynamicParameters();
+
+                //有帶參數就做分頁
+                var sqlpage = "";
+                if (pageNum is not null)
+                {
+                    sqlpage = @" OFFSET (@pageNum - 1)*@pageSize ROWS 
+                                 FETCH NEXT @pageSize ROWS ONLY
+                               ";
+                    param.Add("@pageNum", pageNum, DbType.Int32, ParameterDirection.Input);
+                    param.Add("@pageSize", pageSize, DbType.Int32, ParameterDirection.Input);
+                }
+
+                var sql = $@"
+                            SELECT 
+                            	  [AddressTypeID]
+                                  ,[Name]
+                            FROM [Person].[AddressType] WITH(NOLOCK)
+                            ORDER BY AddressTypeID
+                            {sqlpage}
+                            ";
+                var res = await unitOfWork.Connection.QueryAsync<AddressTypeDto>(sql, param);
+                return res.ToList();    
+            }
+        }
+
+        public async Task<List<PersonInfoDto>> QueryAllPersonInfo(int? pageSize, int? pageNum)
+        {
             using (var unitOfWork = unitOfWorkFactory.Create(dbconnection.DbAdventureWorks2019))
             {
                 var param = new DynamicParameters();

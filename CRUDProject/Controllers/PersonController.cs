@@ -19,14 +19,25 @@ namespace CRUDProject.Controllers
             this.personService = personService;
         }
 
-
         /// <summary>
-        /// 取得所有人員
+        /// 取得地址類型清單
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        [HttpGet]
-        public async Task<GetAllPersonInfoRes> GetAllPersonInfo([FromQuery] GetAllPersonInfoReq req)
+        [HttpGet("AddressType")]
+        public async Task<GetAllAddressTypeRes> GetAllAddressType([FromQuery] GetAllAddressTypeReq req)
+        {
+            var res = await personService.GetAllAddressTypeAsync(req);
+            return res;
+        }
+
+        /// <summary>
+        /// 取得所有人員聯絡資料
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<GetAllPersonInfoRes> GetAllPersonInfo([FromBody] GetAllPersonInfoReq req)
         {
             var res = await personService.GetAllPersonInfoAsync(req);
             return res;
@@ -37,12 +48,6 @@ namespace CRUDProject.Controllers
         public string Get(int id)
         {
             return "value";
-        }
-
-        // POST api/<PersonController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
         }
 
         // PUT api/<PersonController>/5

@@ -2,6 +2,7 @@
 using CRUDProject.DbAccess.Interface;
 using CRUDProjectCommon.RequestModel;
 using CRUDProjectCommon.ResponseModel;
+using System.Net.Sockets;
 
 namespace CRUDProject.BusinessService
 {
@@ -11,6 +12,25 @@ namespace CRUDProject.BusinessService
         public PersonService(IPersonDbAccess personDbAccess)
         {
             this.personDbAccess = personDbAccess;
+        }
+
+        public async Task<GetAllAddressTypeRes> GetAllAddressTypeAsync(GetAllAddressTypeReq req)
+        {
+            var query = await personDbAccess.QueryAllAddressType(req.PageNum, req.PageSize);
+            List<AddressType> typeList = new List<AddressType>();
+            
+            //mapping
+            //todo : auto map
+            foreach (var item in query)
+            {
+                AddressType type = new AddressType
+                {
+                    Id = item.AddressTypeID,
+                    Name = item.Name
+                };
+                typeList.Add(type);
+            }
+            return new GetAllAddressTypeRes { AddressTypeList = typeList };
         }
 
         public async Task<GetAllPersonInfoRes> GetAllPersonInfoAsync(GetAllPersonInfoReq req)
@@ -30,6 +50,11 @@ namespace CRUDProject.BusinessService
                 infoList.Add(info);
             }
             return new GetAllPersonInfoRes { personInfoList = infoList };
+        }
+
+        public Task<UpdatePersonInfoRes> UpdatePersonInfoAsync(UpdatePersonInfoReq req)
+        {
+            throw new NotImplementedException();
         }
     }
 }
