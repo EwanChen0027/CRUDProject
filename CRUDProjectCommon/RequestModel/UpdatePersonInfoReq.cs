@@ -15,10 +15,6 @@ namespace CRUDProjectCommon.RequestModel
         /// </summary>
         public int Id { get; set; }
         /// <summary>
-        /// 新的email
-        /// </summary>
-        public string Email { get; set; }
-        /// <summary>
         /// 新的電話號碼
         /// </summary>
         public string PhoneNumber { get; set; }

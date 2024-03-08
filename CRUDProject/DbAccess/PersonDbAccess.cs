@@ -85,5 +85,25 @@ namespace CRUDProject.DbAccess
 
             }
         }
+
+        public async Task<int> UpdatePersonPhoneNumber(int id, string newPhone)
+        {
+            using (var unitOfWork = unitOfWorkFactory.Create(dbconnection.DbAdventureWorks2019))
+            {
+                var sql = @"
+                            UPDATE [Person].[PersonPhone]
+                            SET PhoneNumber = @newPhone
+                                ,ModifiedDate = @modifyDate
+                            WHERE BusinessEntityID = @id
+                            ";
+                var param = new DynamicParameters();
+                param.Add("@id", id, DbType.Int32, ParameterDirection.Input);
+                param.Add("@newPhone", newPhone, DbType.AnsiString, ParameterDirection.Input, newPhone.Length);
+                param.Add("@modifyDate", DateTime.Now, DbType.DateTime, ParameterDirection.Input);
+                var res = await unitOfWork.Connection.ExecuteAsync(sql, param);
+                return res;
+
+            }
+        }
     }
 }

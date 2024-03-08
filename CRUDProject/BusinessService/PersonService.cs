@@ -2,6 +2,7 @@
 using CRUDProject.DbAccess.Interface;
 using CRUDProjectCommon.RequestModel;
 using CRUDProjectCommon.ResponseModel;
+using Microsoft.AspNetCore.Server.HttpSys;
 using System.Net.Sockets;
 
 namespace CRUDProject.BusinessService
@@ -52,9 +53,28 @@ namespace CRUDProject.BusinessService
             return new GetAllPersonInfoRes { personInfoList = infoList };
         }
 
-        public Task<UpdatePersonInfoRes> UpdatePersonInfoAsync(UpdatePersonInfoReq req)
+        public async Task<UpdatePersonInfoRes> UpdatePhoneNumberAsync(UpdatePersonInfoReq req)
         {
-            throw new NotImplementedException();
+            req.PhoneNumber = req.PhoneNumber.Trim();
+            //檢核電話格式
+            if (!CheckPhoneNumber(req.PhoneNumber))
+            {
+                return new UpdatePersonInfoRes { IsSuccess = false };
+            }
+            var isSuccess = await personDbAccess.UpdatePersonPhoneNumber(req.Id, req.PhoneNumber);
+
+            return new UpdatePersonInfoRes { IsSuccess = true };
+        }
+
+        //todo : 檢核可以抽離成策略模式
+        //單元測試
+        private bool CheckPhoneNumber(string phone)
+        {
+            if (phone.Length != 12)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

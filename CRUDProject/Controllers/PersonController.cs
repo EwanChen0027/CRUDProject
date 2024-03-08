@@ -43,17 +43,16 @@ namespace CRUDProject.Controllers
             return res;
         }
 
-        // GET api/<PersonController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        /// <summary>
+        /// 修改手機號碼
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpPut("PhoneNumber")]
+        public async Task<UpdatePersonInfoRes> UpdatePhoneNumber([FromBody] UpdatePersonInfoReq req)
         {
-            return "value";
-        }
-
-        // PUT api/<PersonController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
+            var res = await personService.UpdatePhoneNumberAsync(req);
+            return res;
         }
 
         // DELETE api/<PersonController>/5

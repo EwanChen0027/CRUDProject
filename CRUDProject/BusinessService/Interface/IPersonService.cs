@@ -22,7 +22,7 @@ namespace CRUDProject.BusinessService.Interface
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        Task<UpdatePersonInfoRes> UpdatePersonInfoAsync(UpdatePersonInfoReq req);
+        Task<UpdatePersonInfoRes> UpdatePhoneNumberAsync(UpdatePersonInfoReq req);
         
     }
 }

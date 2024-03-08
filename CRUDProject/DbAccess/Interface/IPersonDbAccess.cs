@@ -18,6 +18,13 @@ namespace CRUDProject.DbAccess.Interface
         /// <param name="pageSize"></param>
         /// <returns></returns>
         Task<List<PersonInfoDto>> QueryAllPersonInfo(int? pageNum, int? pageSize);
+        /// <summary>
+        /// 更新手機號碼
+        /// </summary>
+        /// <param name="Id">會員Id</param>
+        /// <param name="newPhone">新號碼</param>
+        /// <returns></returns>
+        Task<int> UpdatePersonPhoneNumber(int Id, string newPhone);
         
     }
 }
